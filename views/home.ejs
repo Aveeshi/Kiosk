@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="<%= currentLang %>">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/topbar') %>
+
+  <main>
+    <section class="view is-active" id="view-home">
+      <section class="hero">
+        <p class="eyebrow"><%= t.eyebrow %></p>
+        <h1><%= t.headline %></h1>
+        <p class="subtext"><%= t.subtext %></p>
+      </section>
+
+      <div class="pulse-divider" aria-hidden="true">
+        <svg viewBox="0 0 800 60" preserveAspectRatio="none">
+          <polyline id="pulse-line" points="0,30 260,30 285,10 305,50 325,30 340,30 360,18 380,30 800,30" />
+        </svg>
+      </div>
+
+      <section class="cards" aria-label="Check-in options">
+        <a class="card card--kiosk" href="/login">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="40" height="40"><rect x="6" y="8" width="36" height="24" rx="2.5" fill="none" stroke="currentColor" stroke-width="2.6"/><line x1="18" y1="40" x2="30" y2="40" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><line x1="24" y1="32" x2="24" y2="40" stroke="currentColor" stroke-width="2.6"/></svg>
+          </span>
+          <span class="card-title"><%= t.kioskTitle %></span>
+          <span class="card-desc"><%= t.kioskDesc %></span>
+          <span class="card-cta">
+            <span><%= t.kioskCta %></span>
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+
+        <button class="card card--qr" id="qr-card-btn" type="button">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="40" height="40"><rect x="8" y="6" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="28" y="6" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="8" y="30" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="30" y="28" width="4" height="4" fill="currentColor"/><rect x="36" y="28" width="4" height="4" fill="currentColor"/><rect x="30" y="34" width="4" height="10" fill="currentColor"/><rect x="36" y="38" width="4" height="4" fill="currentColor"/></svg>
+          </span>
+          <span class="card-title"><%= t.qrTitle %></span>
+          <span class="card-desc"><%= t.qrDesc %></span>
+          <span class="card-cta">
+            <span><%= t.qrCta %></span>
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+      </section>
+
+      <p class="helper-note"><%= t.helperNote %></p>
+    </section>
+  </main>
+
+  <%- include('partials/emergency-button') %>
+  <%- include('partials/footer') %>
+
+  <div class="modal-backdrop" id="modal-backdrop">
+    <%- include('partials/qr-modal') %>
+    <%- include('partials/emergency-modal') %>
+  </div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>

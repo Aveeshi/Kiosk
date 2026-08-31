@@ -1,0 +1,29 @@
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+      <path d="M20 33 C10 26 4 20 4 13.5 C4 8 8.2 4 13 4 C16.4 4 19 6 20 9 C21 6 23.6 4 27 4 C31.8 4 36 8 36 13.5 C36 20 30 26 20 33 Z" fill="none" stroke="var(--blue)" stroke-width="2.4"/>
+      <polyline points="6,19 13,19 15,13 18,25 21,17 23,19 34,19" fill="none" stroke="var(--crimson)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="brand-text">
+      <span class="brand-name">Trividha</span>
+      <span class="brand-sub">Hospital Kiosk</span>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <div class="clock" id="clock" aria-live="off">
+      <span id="clock-time">--:--</span>
+      <span id="clock-date">-- --- ----</span>
+    </div>
+
+    <a class="lang-pill" href="/" id="lang-pill-btn" title="Change language">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M4 5h9M8.5 3v2.5M6 5c.5 3 2.5 5.5 5.5 7M12 5c-1 4-4 7-8 8.5M14 21l4-9 4 9M15.3 18h5.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span id="lang-pill-label"><%= currentLangMeta ? currentLangMeta.native : 'English' %></span>
+    </a>
+
+    <div class="text-size-toggle" role="group" aria-label="Adjust text size">
+      <button id="text-smaller" aria-label="Decrease text size" type="button">A−</button>
+      <button id="text-larger" aria-label="Increase text size" type="button">A+</button>
+    </div>
+  </div>
+</header>

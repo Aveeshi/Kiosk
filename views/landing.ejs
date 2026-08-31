@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="<%= currentLang %>">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/topbar') %>
+
+  <main>
+    <section class="view is-active" id="view-language">
+      <div class="lang-select-head">
+        <h1><%= t.chooseLangTitle %></h1>
+        <p class="subtext"><%= t.chooseLangSub %></p>
+      </div>
+
+      <div class="lang-grid" id="lang-grid">
+        <% languages.forEach(function (lang) { %>
+          <form action="/set-language" method="POST" class="lang-tile-form">
+            <input type="hidden" name="lang" value="<%= lang.code %>" />
+            <button
+              type="submit"
+              class="lang-tile <%= currentLang === lang.code ? 'is-selected' : '' %>"
+              data-code="<%= lang.code %>"
+            >
+              <%= lang.native %><span class="lang-english-name"><%= lang.english %></span>
+            </button>
+          </form>
+        <% }) %>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/emergency-button') %>
+  <%- include('partials/footer') %>
+
+  <div class="modal-backdrop" id="modal-backdrop">
+    <%- include('partials/emergency-modal') %>
+  </div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="<%= currentLang %>">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/topbar') %>
+
+  <main>
+    <section class="view is-active" id="view-login">
+      <div class="modal modal--wide modal--page" id="modal-kiosk">
+
+        <!-- STEP 1: ID ENTRY WITH ON-SCREEN KEYPAD -->
+        <div class="login-step is-active" id="login-step-id">
+          <h2 id="modal-kiosk-title"><%= t.loginTitle %></h2>
+          <p class="modal-sub"><%= t.loginSub %></p>
+
+          <div class="id-display" id="id-display">
+            <span class="id-display-placeholder"><%= t.loginLabel %></span>
+          </div>
+          <p class="input-error" id="abha-error"><%= t.loginError %></p>
+
+          <div class="keypad">
+            <button class="keypad-btn" data-digit="1" type="button">1</button>
+            <button class="keypad-btn" data-digit="2" type="button">2</button>
+            <button class="keypad-btn" data-digit="3" type="button">3</button>
+            <button class="keypad-btn" data-digit="4" type="button">4</button>
+            <button class="keypad-btn" data-digit="5" type="button">5</button>
+            <button class="keypad-btn" data-digit="6" type="button">6</button>
+            <button class="keypad-btn" data-digit="7" type="button">7</button>
+            <button class="keypad-btn" data-digit="8" type="button">8</button>
+            <button class="keypad-btn" data-digit="9" type="button">9</button>
+            <button class="keypad-btn keypad-btn--action" id="keypad-clear" type="button"><%= t.keypadClear %></button>
+            <button class="keypad-btn" data-digit="0" type="button">0</button>
+            <button class="keypad-btn keypad-btn--action" id="keypad-back" aria-label="Backspace" type="button">⌫</button>
+          </div>
+
+          <button class="modal-primary-btn" id="send-otp-btn" type="button"><%= t.sendOtpBtn %></button>
+          <p class="modal-footnote"><%= t.loginFootnote %></p>
+        </div>
+
+        <!-- STEP 2: OTP ENTRY -->
+        <div class="login-step" id="login-step-otp">
+          <h2><%= t.otpTitle %></h2>
+          <p class="modal-sub">
+            <span><%= t.otpSub %></span> <span id="otp-masked-number">+91 XXXXX 43210</span>
+          </p>
+          <div class="otp-inputs" id="otp-inputs">
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" readonly />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" readonly />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" readonly />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" readonly />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" readonly />
+            <input type="text" inputmode="numeric" maxlength="1" class="otp-box" readonly />
+          </div>
+          <p class="input-error" id="otp-error"><%= t.otpError %></p>
+
+          <div class="keypad">
+            <button class="keypad-btn" data-otp-digit="1" type="button">1</button>
+            <button class="keypad-btn" data-otp-digit="2" type="button">2</button>
+            <button class="keypad-btn" data-otp-digit="3" type="button">3</button>
+            <button class="keypad-btn" data-otp-digit="4" type="button">4</button>
+            <button class="keypad-btn" data-otp-digit="5" type="button">5</button>
+            <button class="keypad-btn" data-otp-digit="6" type="button">6</button>
+            <button class="keypad-btn" data-otp-digit="7" type="button">7</button>
+            <button class="keypad-btn" data-otp-digit="8" type="button">8</button>
+            <button class="keypad-btn" data-otp-digit="9" type="button">9</button>
+            <button class="keypad-btn keypad-btn--action" id="otp-keypad-clear" type="button"><%= t.keypadClear %></button>
+            <button class="keypad-btn" data-otp-digit="0" type="button">0</button>
+            <button class="keypad-btn keypad-btn--action" id="otp-keypad-back" aria-label="Backspace" type="button">⌫</button>
+          </div>
+
+          <button class="modal-primary-btn" id="verify-otp-btn" type="button"><%= t.verifyBtn %></button>
+          <div class="otp-meta">
+            <button class="link-btn" id="change-id-btn" type="button"><%= t.changeIdLink %></button>
+            <button class="link-btn" id="resend-otp-btn" disabled type="button">Resend OTP in <span id="resend-timer">30</span>s</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: VERIFIED -->
+        <div class="login-step" id="login-step-success">
+          <div class="success-check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="30" height="30"><path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h2><%= t.verifiedTitle %></h2>
+          <p class="modal-sub"><%= t.verifiedSub %></p>
+        </div>
+      </div>
+
+      <a class="wizard-back" href="/home"><%= t.wizardBack %></a>
+    </section>
+  </main>
+
+  <%- include('partials/emergency-button') %>
+  <%- include('partials/footer') %>
+
+  <div class="modal-backdrop" id="modal-backdrop">
+    <%- include('partials/emergency-modal') %>
+  </div>
+
+  <script>
+    window.TRIVIDHA_DICT = <%- JSON.stringify(t) %>;
+  </script>
+  <script src="/js/main.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

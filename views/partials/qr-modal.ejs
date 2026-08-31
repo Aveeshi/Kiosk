@@ -1,0 +1,22 @@
+<div class="modal" id="modal-qr" role="dialog" aria-modal="true" aria-labelledby="modal-qr-title">
+  <button class="modal-close" data-close aria-label="Close" type="button">✕</button>
+  <h2 id="modal-qr-title"><%= t.qrModalTitle %></h2>
+  <div class="qr-box" aria-hidden="true">
+    <svg viewBox="0 0 100 100" width="180" height="180">
+      <rect width="100" height="100" fill="white"/>
+      <g fill="#14213D">
+        <rect x="6" y="6" width="22" height="22"/><rect x="72" y="6" width="22" height="22"/><rect x="6" y="72" width="22" height="22"/>
+        <rect x="12" y="12" width="10" height="10" fill="white"/><rect x="78" y="12" width="10" height="10" fill="white"/><rect x="12" y="78" width="10" height="10" fill="white"/>
+        <rect x="36" y="6" width="6" height="6"/><rect x="48" y="6" width="6" height="6"/><rect x="60" y="6" width="6" height="6"/>
+        <rect x="36" y="18" width="6" height="6"/><rect x="54" y="18" width="6" height="6"/>
+        <rect x="36" y="36" width="6" height="6"/><rect x="48" y="36" width="6" height="6"/><rect x="60" y="36" width="6" height="6"/><rect x="72" y="36" width="6" height="6"/><rect x="84" y="36" width="6" height="6"/>
+        <rect x="6" y="48" width="6" height="6"/><rect x="18" y="48" width="6" height="6"/><rect x="42" y="48" width="6" height="6"/><rect x="66" y="48" width="6" height="6"/><rect x="84" y="48" width="6" height="6"/>
+        <rect x="36" y="60" width="6" height="6"/><rect x="54" y="60" width="6" height="6"/><rect x="72" y="60" width="6" height="6"/>
+        <rect x="48" y="72" width="6" height="6"/><rect x="60" y="72" width="6" height="6"/><rect x="84" y="72" width="6" height="6"/>
+        <rect x="36" y="84" width="6" height="6"/><rect x="60" y="84" width="6" height="6"/><rect x="72" y="84" width="6" height="6"/>
+      </g>
+    </svg>
+  </div>
+  <p class="modal-sub"><%= t.qrModalSub %></p>
+  <button class="modal-secondary-btn" data-close type="button"><%= t.qrModalBtn %></button>
+</div>
