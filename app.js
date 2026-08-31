@@ -1,4 +1,5 @@
 const path = require('path');
+require("dotenv").config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -18,10 +19,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({
-  secret: 'trividha-kiosk-secret',   // move to process.env.SESSION_SECRET in production
+  secret: process.env.SESSION_SECRET,   // move to process.env.SESSION_SECRET in production
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 30 } // 30 min kiosk session
+  cookie: { maxAge: 1000 * 60 * 1 } // 1 min kiosk session
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
