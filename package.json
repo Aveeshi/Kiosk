@@ -1,0 +1,26 @@
+{
+  "name": "trividha-kiosk",
+  "version": "2.5.0",
+  "description": "Trividha Multilingual Healthcare Kiosk & Intelligent Pre-Intake MVC Application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "@google/genai": "^2.4.0",
+    "dotenv": "^17.2.3"
+  },
+  "keywords": [
+    "trividha",
+    "kiosk",
+    "healthcare",
+    "abha",
+    "multilingual",
+    "socrates",
+    "ai-intake"
+  ],
+  "author": "Trividha Health Systems",
+  "license": "MIT"
+}

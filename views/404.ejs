@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+<%- include('partials/topbar') %>
+
+<main class="flex-1 flex flex-col items-center justify-center max-w-lg mx-auto w-full px-6 py-12 text-center">
+  <div class="w-16 h-16 rounded-2xl bg-rose-500/20 text-rose-400 text-3xl flex items-center justify-center mb-4">
+    <i class="fa-solid fa-circle-exclamation"></i>
+  </div>
+  <h1 class="text-3xl font-bold text-white mb-2">Page Not Found</h1>
+  <p class="text-slate-400 text-sm mb-6">The requested kiosk page or clinical path was not found.</p>
+  <a href="/home?lang=<%= selectedLang || 'en' %>" class="px-6 py-3 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm transition-colors">
+    Return to Home
+  </a>
+</main>
+
+<%- include('partials/footer') %>
+</body>
+</html>

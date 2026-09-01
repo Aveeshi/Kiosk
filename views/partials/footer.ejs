@@ -1,0 +1,20 @@
+<!-- Kiosk Footer Navigation & Accessibility Bar -->
+<footer class="bg-slate-900 border-t border-slate-800/80 px-6 py-4 mt-auto">
+  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-circle-info text-teal-400"></i>
+      <span><%= dict.footerLeft || 'Need help? Visit the front desk or ask any staff member.' %></span>
+    </div>
+    
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-2 text-slate-300 font-medium">
+        <i class="fa-solid fa-phone text-teal-400"></i>
+        <span><%= dict.footerRight || 'Helpline: 1800‑103‑2043' %></span>
+      </div>
+      <div class="flex items-center gap-2 border-l border-slate-700 pl-4">
+        <button onclick="window.adjustKioskTextSize(0.1)" class="w-7 h-7 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200">A+</button>
+        <button onclick="window.adjustKioskTextSize(-0.1)" class="w-7 h-7 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200">A-</button>
+      </div>
+    </div>
+  </div>
+</footer>

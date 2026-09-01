@@ -1,0 +1,38 @@
+<!-- Kiosk Top Navigation Bar -->
+<header class="bg-slate-900/90 backdrop-blur border-b border-slate-800 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+  <div class="flex items-center gap-4">
+    <a href="/home?lang=<%= selectedLang %>" class="flex items-center gap-3 group">
+      <div class="w-11 h-11 rounded-xl bg-teal-500/20 border border-teal-500/30 flex items-center justify-center text-teal-400 font-bold text-xl shadow-lg shadow-teal-500/10 group-hover:scale-105 transition-transform">
+        <i class="fa-solid fa-notes-medical"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xl font-bold tracking-tight text-white">त्रिविधा <span class="text-teal-400 font-medium text-base">Trividha</span></span>
+          <span class="px-2 py-0.5 text-xs font-semibold bg-teal-500/10 text-teal-300 border border-teal-500/30 rounded-full">Kiosk v2.5</span>
+        </div>
+        <p class="text-xs text-slate-400">AI-Powered Multilingual Pre-Consultation Intake</p>
+      </div>
+    </a>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <!-- Live Clock -->
+    <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-xs text-slate-300">
+      <i class="fa-regular fa-clock text-teal-400"></i>
+      <span id="kiosk-live-clock">--:--</span>
+    </div>
+
+    <!-- Active Language Selector Button -->
+    <a href="/?lang=<%= selectedLang %>" class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm text-slate-200 transition-colors">
+      <i class="fa-solid fa-language text-teal-400"></i>
+      <span class="font-medium"><%= currentLang.native %></span>
+      <span class="text-xs text-slate-400">(<%= currentLang.english %>)</span>
+    </a>
+
+    <!-- Emergency Button -->
+    <button onclick="window.openEmergencyModal()" class="flex items-center gap-2 px-4 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-sm shadow-lg shadow-rose-600/20 active:scale-95 transition-all">
+      <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+      <span><%= dict.emergency || 'Emergency' %></span>
+    </button>
+  </div>
+</header>

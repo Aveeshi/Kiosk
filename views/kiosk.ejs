@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trividha CareIntake Voice Kiosk</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            trividha: {
+              navy: '#162b4d',
+              red: '#b82733',
+              lightRed: '#fce8e9',
+              blue: '#1b4380',
+              lightBlue: '#e9f0fc',
+              bg: '#f8f9fa',
+              gray: '#6b778c',
+              orange: '#eab308'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    
+    /* Animations */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      100% { transform: scale(1.3); opacity: 0; }
+    }
+    .mic-listening {
+      box-shadow: 0 0 0 0 rgba(184, 39, 51, 0.4);
+      animation: pulse-red 1.5s infinite;
+    }
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(184, 39, 51, 0.4); }
+      70% { box-shadow: 0 0 0 25px rgba(184, 39, 51, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(184, 39, 51, 0); }
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+  </style>
+</head>
+<body class="h-screen w-full bg-trividha-bg text-trividha-navy flex flex-col overflow-hidden select-none">
+  
+  <!-- Header matching the screenshot -->
+  <header class="bg-white px-8 py-5 flex items-center justify-between border-b border-gray-200 z-10 shrink-0">
+    <!-- Left: Logo -->
+    <div class="flex items-center gap-3">
+      <div class="text-trividha-red">
+        <!-- SVG Heart Pulse Logo -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-pulse"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
+      </div>
+      <div class="flex flex-col justify-center">
+        <h1 class="font-extrabold text-xl text-trividha-navy leading-tight tracking-tight">Trividha</h1>
+        <p class="text-xs text-trividha-gray font-medium leading-none mt-0.5">Hospital Kiosk</p>
+      </div>
+    </div>
+
+    <!-- Right: Time and Lang -->
+    <div class="flex items-center gap-6">
+      <div class="text-right">
+        <div class="font-bold text-trividha-navy leading-none" id="clockTime">00:00 PM</div>
+        <div class="text-[11px] text-trividha-gray font-medium mt-1 uppercase tracking-wide" id="clockDate">Sun, 01 Jan</div>
+      </div>
+      
+      <div class="flex gap-3">
+        <!-- Language Select Button -->
+        <button id="langBtn" class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-trividha-navy px-4 py-2 rounded-full text-sm font-bold transition">
+          <i data-lucide="languages" class="w-4 h-4"></i>
+          <span id="langDisplay">English</span>
+        </button>
+        <!-- Font Size Mock Buttons -->
+        <div class="flex items-center bg-gray-100 rounded-full px-1">
+          <button class="w-8 h-8 rounded-full text-trividha-navy text-sm font-bold hover:bg-white transition">A-</button>
+          <button class="w-8 h-8 rounded-full text-trividha-navy text-sm font-bold hover:bg-white transition">A+</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Kiosk Body -->
+  <main class="flex-1 flex flex-col items-center justify-start sm:justify-center p-4 md:p-8 relative overflow-y-auto w-full">
+    
+    <div class="w-full max-w-4xl flex flex-col items-center justify-center min-h-full py-4">
+      <!-- Top Text (Namaste & Headline) -->
+      <div class="text-center mb-6 shrink-0">
+        <p class="text-trividha-red font-bold mb-1 text-lg">Namaste 🙏</p>
+        <h2 id="mainStatusText" class="text-3xl md:text-4xl font-extrabold text-trividha-navy mb-3 tracking-tight">
+          Tap the microphone to speak
+        </h2>
+        <p class="text-trividha-gray font-medium text-sm md:text-base max-w-xl mx-auto flex items-center justify-center gap-4">
+          <span class="h-px bg-gray-300 flex-1"></span>
+          <span id="langNotice">Speaks in English</span>
+          <span class="h-px bg-gray-300 flex-1"></span>
+        </p>
+      </div>
+
+      <!-- AI Dialogue Bubble -->
+      <div id="dialogueContainer" class="hidden w-full max-w-3xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.06)] rounded-3xl p-6 mb-6 text-center border-t-4 border-t-trividha-blue animate-fade-in shrink-0">
+        <p id="assistantText" class="text-xl md:text-2xl font-bold text-trividha-navy leading-snug"></p>
+        <p id="assistantTranslation" class="text-sm text-trividha-gray mt-2 font-medium"></p>
+        <!-- Quick Replies -->
+        <div id="quickRepliesContainer" class="mt-4 pt-4 border-t border-gray-100 flex flex-wrap gap-2 justify-center"></div>
+      </div>
+
+      <!-- Live Transcribe -->
+      <div id="transcribeContainer" class="hidden w-full max-w-xl bg-trividha-lightBlue border-2 border-blue-200 rounded-2xl p-3 mb-6 shrink-0">
+        <p class="text-base text-trividha-blue font-medium flex items-center gap-3">
+          <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
+          Hearing: <span id="transcribeText" class="font-bold"></span>
+        </p>
+      </div>
+
+      <!-- Big Action Button (Red style from screenshot) -->
+      <div class="relative my-4 flex items-center justify-center shrink-0">
+        <div id="micOuterRing" class="absolute w-48 h-48 md:w-56 md:h-56 rounded-full border-2 border-gray-200 transition-all duration-500 pointer-events-none"></div>
+        
+        <button id="micBtn" class="relative z-10 w-36 h-36 md:w-44 md:h-44 rounded-full bg-trividha-red text-white flex flex-col items-center justify-center shadow-2xl hover:bg-[#9c1f2a] active:scale-95 transition-all">
+          <i id="micIcon" data-lucide="mic" class="w-12 h-12 md:w-14 md:h-14 mb-1"></i>
+          <span id="micLabel" class="text-sm md:text-base font-bold tracking-wide uppercase">Start</span>
+        </button>
+      </div>
+
+      <!-- New Patient Reset Text -->
+      <button id="resetBtn" class="mt-6 text-trividha-gray hover:text-trividha-navy font-bold flex items-center gap-2 transition shrink-0">
+        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+        Restart / New Patient
+      </button>
+    </div>
+  </main>
+
+  <!-- Emergency Floating Button -->
+  <button class="fixed bottom-8 right-8 bg-trividha-orange text-white px-6 py-4 rounded-full font-bold shadow-xl hover:scale-105 transition-transform flex items-center gap-2 border-4 border-yellow-100">
+    <i data-lucide="heart-pulse" class="w-5 h-5"></i>
+    Emergency
+  </button>
+
+  <!-- Language Modal -->
+  <div id="langModal" class="hidden fixed inset-0 bg-trividha-navy/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-2xl rounded-3xl p-8 relative shadow-2xl">
+      <h3 class="font-extrabold text-2xl text-trividha-navy mb-2">Select Language</h3>
+      <p class="text-trividha-gray mb-6 font-medium">Choose a language for the AI Voice Assistant.</p>
+      
+      <div id="langList" class="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-80 overflow-y-auto custom-scrollbar pr-2"></div>
+      
+      <button id="closeLangBtn" class="mt-8 w-full bg-gray-100 hover:bg-gray-200 text-trividha-navy py-4 rounded-xl font-bold transition">Close</button>
+    </div>
+  </div>
+
+  <script src="/js/languages.js"></script>
+  <script src="/js/speech.js"></script>
+  <script src="/js/kiosk.js"></script>
+  <script>
+    lucide.createIcons();
+    
+    // Live Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clockTime').innerText = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('clockDate').innerText = now.toLocaleDateString('en-US', { weekday: 'short', day: '2-digit', month: 'short' });
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+  </script>
+</body>
+</html>
